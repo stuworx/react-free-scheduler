@@ -5,7 +5,10 @@ import styles from "./week.module.css";
 export interface WeekWithResourceProps {
   days: Array<Date>;
   events: Array<IEvents>;
-  resources?: Array<string>;
+  resources?: Array<Object>;
+  renderResourceItem?: any;
+  renderEventItem?: any;
+  resourceIdentifierInEvent?: string;
 }
 
 export interface WeekWithResourceState {
@@ -16,6 +19,7 @@ class WeekWithResource extends React.Component<
   WeekWithResourceProps,
   WeekWithResourceState
 > {
+  dateFormat: string = "YYYY-MM-DD";
   constructor(props: WeekWithResourceProps) {
     super(props);
     this.state = {
@@ -37,13 +41,19 @@ class WeekWithResource extends React.Component<
   render() {
     let eventsData = this.props.events.reduce((acc: any, event) => {
       let eventData = { ...event };
-      let eventDate = moment(event.startDate).format("YYYY-MM-DD");
-      if (!acc[eventDate]) {
-        acc[eventDate] = [];
+      let eventDate = moment(event.startDate).format(this.dateFormat);
+      if (eventData.resource) {
+        if (!acc[eventData.resource]) {
+          acc[eventData.resource] = {};
+        }
+        if (!acc[eventData.resource][eventDate]) {
+          acc[eventData.resource][eventDate] = [];
+        }
+        eventData.noOfDays =
+          moment(eventData.endDate).diff(moment(eventData.startDate), "days") +
+          1;
+        acc[eventData.resource][eventDate].push(eventData);
       }
-      eventData.noOfDays =
-        moment(eventData.endDate).diff(moment(eventData.startDate), "days") + 1;
-      acc[eventDate].push(eventData);
       return acc;
     }, {});
     console.log(eventsData);
@@ -86,7 +96,7 @@ class WeekWithResource extends React.Component<
               <tr>
                 <td>Resource</td>
                 {this.state.days.map((day, index) => (
-                  <td key={index}>
+                  <td key={`header${index}`}>
                     {moment(day).format("ddd")}
                     <br />
                     {moment(day).format("DD")}
@@ -94,6 +104,57 @@ class WeekWithResource extends React.Component<
                 ))}
               </tr>
             </thead>
+            <tbody>
+              {this.props.resources?.map((resource: any) => (
+                <tr>
+                  <td>
+                    {this.props.renderResourceItem
+                      ? this.props.renderResourceItem(resource)
+                      : JSON.stringify(resource)}
+                  </td>
+                  {this.state.days.map((day, index) => {
+                    let date = moment(day).format(this.dateFormat);
+                    console.log(date);
+
+                    return (
+                      <React.Fragment>
+                        {this.props.resourceIdentifierInEvent &&
+                        eventsData[
+                          resource[this.props.resourceIdentifierInEvent]
+                        ] &&
+                        eventsData[
+                          resource[this.props.resourceIdentifierInEvent]
+                        ][date] ? (
+                          <td
+                            key={`body${index}`}
+                            colSpan={
+                              eventsData[
+                                resource[this.props.resourceIdentifierInEvent]
+                              ][date].noOfDays
+                            }
+                          >
+                            <div>
+                              {this.props.renderEventItem(
+                                eventsData[
+                                  resource[this.props.resourceIdentifierInEvent]
+                                ][date]
+                              )}
+                            </div>
+                            {
+                              eventsData[
+                                resource[this.props.resourceIdentifierInEvent]
+                              ][date].noOfDays
+                            }
+                          </td>
+                        ) : (
+                          <td key={`body${index}`}></td>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
           </table>
         </section>
       </React.Fragment>

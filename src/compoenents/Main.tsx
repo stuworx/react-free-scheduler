@@ -5,7 +5,10 @@ import moment from "moment";
 export interface MainProps {
   events: Array<IEvents>;
   date: Date;
-  resources?: Array<string>;
+  resources?: Array<Object>;
+  renderResourceItem: any;
+  renderEventItem: any;
+  resourceIdentifierInEvent: string;
 }
 
 export interface MainState {}
@@ -33,6 +36,9 @@ class Main extends React.Component<MainProps, MainState> {
           days={days}
           events={events}
           resources={this.props.resources}
+          resourceIdentifierInEvent={this.props.resourceIdentifierInEvent}
+          renderResourceItem={this.props.renderResourceItem}
+          renderEventItem={this.props.renderEventItem}
         />
       </React.Fragment>
     );

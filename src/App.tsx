@@ -12,10 +12,29 @@ const App: React.FC = () => {
         .toDate(),
       endDate: moment().toDate(),
       name: "my first event",
-      resource: "res1"
+      resource: "1234"
     }
   ];
-  return <Main events={events} date={new Date()} />;
+  let resources = [
+    {
+      _id: "1234",
+      name: "test"
+    }
+  ];
+  return (
+    <Main
+      events={events}
+      date={new Date()}
+      resources={resources}
+      resourceIdentifierInEvent="_id"
+      renderResourceItem={(item: any) => (
+        <React.Fragment>{JSON.stringify(item)}</React.Fragment>
+      )}
+      renderEventItem={(event: IEvents) => (
+        <React.Fragment>{JSON.stringify(event)}</React.Fragment>
+      )}
+    />
+  );
 };
 
 export default App;
