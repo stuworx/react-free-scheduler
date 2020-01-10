@@ -13,6 +13,24 @@ const App: React.FC = () => {
       endDate: moment().toDate(),
       name: "my first event",
       resource: "1234"
+    },
+    {
+      startDate: moment()
+        .subtract(7, "days")
+        .toDate(),
+      endDate: moment().toDate(),
+      name: "my first event",
+      resource: "1234"
+    },
+    {
+      startDate: moment()
+        .add(8, "days")
+        .toDate(),
+      endDate: moment()
+        .add(10, "days")
+        .toDate(),
+      name: "my first event",
+      resource: "1234"
     }
   ];
   let resources = [
@@ -23,15 +41,16 @@ const App: React.FC = () => {
   ];
   return (
     <Main
+      className="scheduler-main"
       events={events}
       date={new Date()}
       resources={resources}
       resourceIdentifierInEvent="_id"
       renderResourceItem={(item: any) => (
-        <React.Fragment>{JSON.stringify(item)}</React.Fragment>
+        <React.Fragment>{item.name}</React.Fragment>
       )}
       renderEventItem={(event: IEvents) => (
-        <React.Fragment>{JSON.stringify(event)}</React.Fragment>
+        <React.Fragment>{event.name}</React.Fragment>
       )}
     />
   );

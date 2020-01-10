@@ -9,6 +9,7 @@ export interface WeekWithResourceProps {
   renderResourceItem?: any;
   renderEventItem?: any;
   resourceIdentifierInEvent?: string;
+  className?: string;
 }
 
 export interface WeekWithResourceState {
@@ -60,7 +61,11 @@ class WeekWithResource extends React.Component<
     let days = this.state.days;
     return (
       <React.Fragment>
-        <section className={styles.padding16}>
+        <section
+          className={`${styles.padding16} ${
+            this.props.className ? this.props.className : ""
+          }`}
+        >
           <table className={styles.freeSchedulerTable}>
             <thead>
               <tr>
@@ -125,26 +130,14 @@ class WeekWithResource extends React.Component<
                         eventsData[
                           resource[this.props.resourceIdentifierInEvent]
                         ][date] ? (
-                          <td
-                            key={`body${index}`}
-                            colSpan={
-                              eventsData[
-                                resource[this.props.resourceIdentifierInEvent]
-                              ][date].noOfDays
-                            }
-                          >
+                          <td key={`body${index}`}>
                             <div>
                               {this.props.renderEventItem(
                                 eventsData[
                                   resource[this.props.resourceIdentifierInEvent]
-                                ][date]
+                                ][date][0]
                               )}
                             </div>
-                            {
-                              eventsData[
-                                resource[this.props.resourceIdentifierInEvent]
-                              ][date].noOfDays
-                            }
                           </td>
                         ) : (
                           <td key={`body${index}`}></td>

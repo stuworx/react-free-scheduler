@@ -9,6 +9,7 @@ export interface MainProps {
   renderResourceItem: any;
   renderEventItem: any;
   resourceIdentifierInEvent: string;
+  className?: string;
 }
 
 export interface MainState {}
@@ -33,6 +34,7 @@ class Main extends React.Component<MainProps, MainState> {
       <React.Fragment>
         <h2>Main</h2>
         <WeekWithResource
+          className={this.props.className}
           days={days}
           events={events}
           resources={this.props.resources}
