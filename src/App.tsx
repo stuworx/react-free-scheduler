@@ -7,10 +7,8 @@ import moment from "moment";
 const App: React.FC = () => {
   let events: Array<IEvents> = [
     {
-      startDate: moment()
-        .subtract(2, "days")
-        .toDate(),
-      endDate: moment().toDate(),
+      startDate: moment("02-01-2020", "DD-MM-YYYY").toDate(),
+      endDate: moment("02-01-2020", "DD-MM-YYYY").toDate(),
       name: "my first event",
       resource: "1234"
     },
@@ -23,11 +21,9 @@ const App: React.FC = () => {
       resource: "1234"
     },
     {
-      startDate: moment()
-        .add(8, "days")
-        .toDate(),
-      endDate: moment()
-        .add(10, "days")
+      startDate: moment("17-01-2020", "DD-MM-YYYY").toDate(),
+      endDate: moment("17-01-2020", "DD-MM-YYYY")
+        .add(1, "day")
         .toDate(),
       name: "my first event",
       resource: "1234"
