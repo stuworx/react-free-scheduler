@@ -1,0 +1,22 @@
+.padding16 {
+    padding: 16px
+}
+
+.dateContainer {
+    display: flex;
+}
+
+.dateContainer div {
+    cursor: pointer;
+}
+
+.freeSchedulerTable {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+.freeSchedulerTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
