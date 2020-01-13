@@ -8,7 +8,7 @@ export interface MainProps {
   resources?: Array<Object>;
   renderResourceItem: any;
   renderEventItem: any;
-  resourceIdentifierInEvent: string;
+  resourceId: string;
   className?: string;
 }
 
@@ -38,7 +38,7 @@ class Main extends React.Component<MainProps, MainState> {
           days={days}
           events={events}
           resources={this.props.resources}
-          resourceIdentifierInEvent={this.props.resourceIdentifierInEvent}
+          resourceId={this.props.resourceId}
           renderResourceItem={this.props.renderResourceItem}
           renderEventItem={this.props.renderEventItem}
         />

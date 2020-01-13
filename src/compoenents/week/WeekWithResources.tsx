@@ -8,7 +8,7 @@ export interface WeekWithResourceProps {
   resources?: Array<Object>;
   renderResourceItem?: any;
   renderEventItem?: any;
-  resourceIdentifierInEvent?: string;
+  resourceId?: string;
   className?: string;
 }
 
@@ -123,19 +123,15 @@ class WeekWithResource extends React.Component<
 
                     return (
                       <React.Fragment>
-                        {this.props.resourceIdentifierInEvent &&
-                        eventsData[
-                          resource[this.props.resourceIdentifierInEvent]
-                        ] &&
-                        eventsData[
-                          resource[this.props.resourceIdentifierInEvent]
-                        ][date] ? (
+                        {this.props.resourceId &&
+                        eventsData[resource[this.props.resourceId]] &&
+                        eventsData[resource[this.props.resourceId]][date] ? (
                           <td key={`body${index}`}>
                             <div>
                               {this.props.renderEventItem(
-                                eventsData[
-                                  resource[this.props.resourceIdentifierInEvent]
-                                ][date][0]
+                                eventsData[resource[this.props.resourceId]][
+                                  date
+                                ][0]
                               )}
                             </div>
                           </td>

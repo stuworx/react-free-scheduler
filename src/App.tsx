@@ -41,7 +41,7 @@ const App: React.FC = () => {
       events={events}
       date={new Date()}
       resources={resources}
-      resourceIdentifierInEvent="_id"
+      resourceId="_id"
       renderResourceItem={(item: any) => (
         <React.Fragment>{item.name}</React.Fragment>
       )}
