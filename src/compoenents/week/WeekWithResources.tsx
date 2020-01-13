@@ -10,6 +10,7 @@ export interface WeekWithResourceProps {
   renderEventItem?: any;
   resourceId?: string;
   className?: string;
+  onDatesChange: Function;
 }
 
 export interface WeekWithResourceState {
@@ -38,6 +39,7 @@ class WeekWithResource extends React.Component<
       days.push(day.toDate());
     }
     this.setState({ days });
+    this.props.onDatesChange(days[0], days[days.length - 1]);
   };
   render() {
     let eventsData = this.props.events.reduce((acc: any, event) => {
@@ -110,8 +112,8 @@ class WeekWithResource extends React.Component<
               </tr>
             </thead>
             <tbody>
-              {this.props.resources?.map((resource: any) => (
-                <tr>
+              {this.props.resources?.map((resource: any, index) => (
+                <tr key={`resource${index}`}>
                   <td>
                     {this.props.renderResourceItem
                       ? this.props.renderResourceItem(resource)

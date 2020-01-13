@@ -10,6 +10,7 @@ export interface MainProps {
   renderEventItem: any;
   resourceId: string;
   className?: string;
+  onDatesChange: Function;
 }
 
 export interface MainState {}
@@ -41,6 +42,7 @@ class Main extends React.Component<MainProps, MainState> {
           resourceId={this.props.resourceId}
           renderResourceItem={this.props.renderResourceItem}
           renderEventItem={this.props.renderEventItem}
+          onDatesChange={this.props.onDatesChange}
         />
       </React.Fragment>
     );
